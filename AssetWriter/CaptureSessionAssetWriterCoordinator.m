@@ -8,6 +8,19 @@
 
 #import "CaptureSessionAssetWriterCoordinator.h"
 
+@interface CaptureSessionAssetWriterCoordinator ()
+
+
+@end
+
 @implementation CaptureSessionAssetWriterCoordinator
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        
+    }
+    return self;
+}
 
 @end

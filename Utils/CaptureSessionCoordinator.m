@@ -87,7 +87,8 @@
 - (AVCaptureSession *)setupCaptureSession
 {
     AVCaptureSession *captureSession = [AVCaptureSession new];
-    
+    //实现手机自带相机打开效果
+    captureSession.sessionPreset = AVCaptureSessionPreset640x480;
     if(![self addDefaultCameraInputToCaptureSession:captureSession]){
         NSLog(@"failed to add camera input to capture session");
     }

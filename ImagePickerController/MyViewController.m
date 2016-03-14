@@ -31,44 +31,41 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    self.view.backgroundColor = [UIColor whiteColor];
     [self setupView];
 }
 
 - (void)setupView {
-    UIView *toolView = [[UIView alloc] initWithFrame:CGRectMake(0, HEIGHT - 100, WIDTH, 100)];
+    UIView *toolView = [[UIView alloc] initWithFrame:CGRectMake(0, WIDTH/3*4 + 5, WIDTH, HEIGHT - WIDTH/3*4 - 5)];
     toolView.backgroundColor = [UIColor blackColor];
     toolView.alpha = 0.5;
     [self.view addSubview:toolView];
     
     self.record = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.record setTitle:@"start" forState:UIControlStateNormal];
-    self.record.frame = CGRectMake(WIDTH/2 + (WIDTH/2 - 50)/2, 25, 50, 50);
+    self.record.frame = CGRectMake(WIDTH/2 + (WIDTH/2 - 100)/2, 25, 100, 50);
     [self.record addTarget:self action:@selector(recordClick:) forControlEvents:UIControlEventTouchUpInside];
     [toolView addSubview:self.record];
     
     self.close = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.close setTitle:@"关闭" forState:UIControlStateNormal];
-    self.close.frame = CGRectMake((WIDTH/2 - 50)/2, 25, 50, 50);
+    self.close.frame = CGRectMake((WIDTH/2 - 100)/2, 25, 100, 50);
     [self.close addTarget:self action:@selector(closeClick) forControlEvents:UIControlEventTouchUpInside];
     [toolView addSubview:self.close];
     
-    UIView *navView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, WIDTH, 100)];
-    navView.backgroundColor = [UIColor blackColor];
-    navView.alpha = 0.5;
-    [self.view addSubview:navView];
     self.change = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.change.frame = CGRectMake(0, 0, 100, 50);
+    self.change.frame = CGRectMake(WIDTH/2 + (WIDTH/2 - 100)/2, 100, 100, 50);
     [self.change setTitle:@"切摄像头" forState:UIControlStateNormal];
-    self.change.center = navView.center;
     self.change.tag = 1;
     [self.change addTarget:self action:@selector(changeClick:) forControlEvents:UIControlEventTouchUpInside];
-    [navView addSubview:self.change];
+    [toolView addSubview:self.change];
     
     self.flash = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.flash.frame = CGRectMake(self.change.frame.origin.x + 150, 25, 100, 50);
+    self.flash.frame = CGRectMake((WIDTH/2 - 100)/2, 100, 100, 50);
     [self.flash setTitle:@"闪光灯" forState:UIControlStateNormal];
     [self.flash addTarget:self action:@selector(flashClick:) forControlEvents:UIControlEventTouchUpInside];
-    [navView addSubview:self.flash];
+    [toolView addSubview:self.flash];
     
     //对焦十字
     _focalReticule=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 60, 60)];
@@ -109,7 +106,7 @@
 
 - (void)configureInterface {
     AVCaptureVideoPreviewLayer *previewLayer = [self.captureSessionCoordinator previewLayer];
-    previewLayer.frame = CGRectMake(0, 0, WIDTH, HEIGHT);
+    previewLayer.frame = CGRectMake(0, -(HEIGHT - (WIDTH/3*4))/2, WIDTH, HEIGHT);
     [self.view.layer insertSublayer:previewLayer atIndex:0];
     [self.captureSessionCoordinator startRunning];
 }
