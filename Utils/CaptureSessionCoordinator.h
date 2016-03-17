@@ -30,6 +30,9 @@
 - (void)startRecording;
 - (void)stopRecording;
 
+- (void)pauseRecording;
+- (void)resumeRecording;
+
 - (void)focusAtPoint:(CGPoint)point completionHandler:(void (^)())handler;//对焦
 
 - (void)changeClick;//切摄像头

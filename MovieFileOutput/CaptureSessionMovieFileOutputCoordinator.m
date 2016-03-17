@@ -50,6 +50,13 @@
     [_movieFileOutput stopRecording];
 }
 
+- (void)pauseRecording {
+    //overwritten by subclass
+}
+- (void)resumeRecording {
+    //overwritten by subclass
+}
+
 #pragma mark - AVCaptureFileOutputRecordingDelegate methods
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL
       fromConnections:(NSArray *)connections

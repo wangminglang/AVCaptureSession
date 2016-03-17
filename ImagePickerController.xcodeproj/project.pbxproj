@@ -19,6 +19,7 @@
 		BEE4576F1C910FC700E23F48 /* ImagePickerControllerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE4576E1C910FC700E23F48 /* ImagePickerControllerUITests.m */; };
 		BEE4577E1C91141800E23F48 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE4577D1C91141800E23F48 /* ViewController.m */; };
 		BEE457811C914B5400E23F48 /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE457801C914B5400E23F48 /* MyViewController.m */; };
+		BEEDC1AA1C9A548300FA219B /* AssetWriterCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = BEEDC1A91C9A548300FA219B /* AssetWriterCoordinator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,8 @@
 		BEE457801C914B5400E23F48 /* MyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
 		BEE457821C91545900E23F48 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		BEE457831C91547F00E23F48 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		BEEDC1A81C9A548300FA219B /* AssetWriterCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetWriterCoordinator.h; sourceTree = "<group>"; };
+		BEEDC1A91C9A548300FA219B /* AssetWriterCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetWriterCoordinator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +112,8 @@
 			children = (
 				BE446A1A1C92AE2900655F7D /* CaptureSessionAssetWriterCoordinator.h */,
 				BE446A1B1C92AE2900655F7D /* CaptureSessionAssetWriterCoordinator.m */,
+				BEEDC1A81C9A548300FA219B /* AssetWriterCoordinator.h */,
+				BEEDC1A91C9A548300FA219B /* AssetWriterCoordinator.m */,
 			);
 			path = AssetWriter;
 			sourceTree = "<group>";
@@ -320,6 +325,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BE446A191C92ADE500655F7D /* CaptureSessionMovieFileOutputCoordinator.m in Sources */,
+				BEEDC1AA1C9A548300FA219B /* AssetWriterCoordinator.m in Sources */,
 				BE446A161C92A9DC00655F7D /* CaptureSessionCoordinator.m in Sources */,
 				BE446A1C1C92AE2900655F7D /* CaptureSessionAssetWriterCoordinator.m in Sources */,
 				BEE4577E1C91141800E23F48 /* ViewController.m in Sources */,

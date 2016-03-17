@@ -79,11 +79,14 @@
     //overwritten by subclass
 }
 
-
+- (void)pauseRecording {
+    //overwritten by subclass
+}
+- (void)resumeRecording {
+    //overwritten by subclass
+}
 
 #pragma mark - Capture Session Setup
-
-
 - (AVCaptureSession *)setupCaptureSession
 {
     AVCaptureSession *captureSession = [AVCaptureSession new];
@@ -121,7 +124,7 @@
 {
     NSError *error;
     NSArray *devices = [AVCaptureDevice devicesWithMediaType:AVMediaTypeVideo];
-    self.cameraDeviceInput;
+//    self.cameraDeviceInput;
     for(AVCaptureDevice *device in devices){
         if(device.position == position){
             self.cameraDeviceInput = [[AVCaptureDeviceInput alloc] initWithDevice:device error:&error];
