@@ -252,6 +252,7 @@ typedef NS_ENUM(NSInteger, WriterStatus){
     
     if ( [_assetWriter canApplyOutputSettings:audioSettings forMediaType:AVMediaTypeAudio] ){
         _audioInput = [[AVAssetWriterInput alloc] initWithMediaType:AVMediaTypeAudio outputSettings:audioSettings sourceFormatHint:audioFormatDescription];
+        //需要从capture session实时获得数据
         _audioInput.expectsMediaDataInRealTime = YES;
         
         if ([_assetWriter canAddInput:_audioInput]){

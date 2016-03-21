@@ -22,6 +22,8 @@
 @property (nonatomic, strong) UIButton *close;
 @property (nonatomic, strong) UIButton *change;//切摄像头
 @property (nonatomic, strong) UIButton *flash;//闪光灯
+@property (nonatomic, strong) UIButton *pause;//暂停
+@property (nonatomic, strong) UIButton *resume;//恢复录制
 @property (nonatomic,strong) UIView *focalReticule;//对焦十字
 
 @end
@@ -44,28 +46,40 @@
     
     self.record = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.record setTitle:@"start" forState:UIControlStateNormal];
-    self.record.frame = CGRectMake(WIDTH/2 + (WIDTH/2 - 100)/2, 25, 100, 50);
+    self.record.frame = CGRectMake(WIDTH/2 + (WIDTH/2 - 100)/2, 0, 100, 50);
     [self.record addTarget:self action:@selector(recordClick:) forControlEvents:UIControlEventTouchUpInside];
     [toolView addSubview:self.record];
     
     self.close = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.close setTitle:@"关闭" forState:UIControlStateNormal];
-    self.close.frame = CGRectMake((WIDTH/2 - 100)/2, 25, 100, 50);
+    self.close.frame = CGRectMake((WIDTH/2 - 100)/2, 0, 100, 50);
     [self.close addTarget:self action:@selector(closeClick) forControlEvents:UIControlEventTouchUpInside];
     [toolView addSubview:self.close];
     
     self.change = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.change.frame = CGRectMake(WIDTH/2 + (WIDTH/2 - 100)/2, 100, 100, 50);
+    self.change.frame = CGRectMake(WIDTH/2 + (WIDTH/2 - 100)/2, 50, 100, 50);
     [self.change setTitle:@"切摄像头" forState:UIControlStateNormal];
     self.change.tag = 1;
     [self.change addTarget:self action:@selector(changeClick:) forControlEvents:UIControlEventTouchUpInside];
     [toolView addSubview:self.change];
     
     self.flash = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.flash.frame = CGRectMake((WIDTH/2 - 100)/2, 100, 100, 50);
+    self.flash.frame = CGRectMake((WIDTH/2 - 100)/2, 50, 100, 50);
     [self.flash setTitle:@"闪光灯" forState:UIControlStateNormal];
     [self.flash addTarget:self action:@selector(flashClick:) forControlEvents:UIControlEventTouchUpInside];
     [toolView addSubview:self.flash];
+    
+    self.pause = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.pause.frame = CGRectMake((WIDTH/2 - 100)/2, 100, 100, 50);
+    [self.pause setTitle:@"暂停" forState:UIControlStateNormal];
+    [self.pause addTarget:self action:@selector(pauseClick) forControlEvents:UIControlEventTouchUpInside];
+    [toolView addSubview:self.pause];
+
+    self.resume = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.resume.frame = CGRectMake(WIDTH/2 + (WIDTH/2 - 100)/2, 100, 100, 50);
+    [self.resume setTitle:@"恢复录制" forState:UIControlStateNormal];
+    [self.resume addTarget:self action:@selector(resumeClick) forControlEvents:UIControlEventTouchUpInside];
+    [toolView addSubview:self.resume];
     
     //对焦十字
     _focalReticule=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 60, 60)];
@@ -172,6 +186,16 @@
     [self.captureSessionCoordinator changeClick];
 }
 
+//暂停录制
+- (void)pauseClick {
+    [self.captureSessionCoordinator pauseRecording];
+}
+
+//恢复录制
+- (void)resumeClick {
+    [self.captureSessionCoordinator resumeRecording];
+}
+
 #pragma mark - CaptureSessionCoordinatorDelegate
 - (void)coordinatorDidBeginRecording:(CaptureSessionCoordinator *)coordinator {
     self.record.enabled = YES;
@@ -183,7 +207,6 @@
     [self.record setTitle:@"start" forState:UIControlStateNormal];
     FileManager *fm = [[FileManager alloc] init];
     [fm copyFileToCameraRoll:outputFileURL];
-    
     
     if (self.dismissing) {
         [self stopRunningAndDismiss];

@@ -39,6 +39,9 @@ typedef NS_ENUM( NSInteger, RecordingStatus )
 @property(nonatomic, retain) __attribute__((NSObject)) CMFormatDescriptionRef outputAudioFormatDescription;
 @property(nonatomic, retain) AssetWriterCoordinator *assetWriterCoordinator;
 
+@property (nonatomic, assign) BOOL isCapturing;//正在录制
+@property (nonatomic, assign) BOOL isPaused;//暂停
+
 
 @end
 
@@ -86,6 +89,14 @@ typedef NS_ENUM( NSInteger, RecordingStatus )
         [self transitionToRecordingStatus:RecordingStatusStoppingRecording error:nil];
     }
     [self.assetWriterCoordinator finishRecording];
+}
+
+- (void)pauseRecording {
+    
+}
+
+- (void)resumeRecording {
+    
 }
 
 #pragma mark - SampleBufferDelegate methods
@@ -197,6 +208,7 @@ typedef NS_ENUM( NSInteger, RecordingStatus )
 }
 
 - (void)setCompressionSettings {
+    //定义输出设置，比如，增加视频比特率来提高视频质量等
     _videoCompressionSettings = [_videoDataOutput recommendedVideoSettingsForAssetWriterWithOutputFileType:AVFileTypeQuickTimeMovie];
     _audioCompressionSettings = [_audioDataOutput recommendedAudioSettingsForAssetWriterWithOutputFileType:AVFileTypeQuickTimeMovie];
 }

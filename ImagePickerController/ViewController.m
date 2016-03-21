@@ -10,6 +10,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AVFoundation/AVFoundation.h>
 #import "MyViewController.h"
+#import "SecondViewController.h"
 
 
 @interface ViewController () <UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
@@ -41,7 +42,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 3;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -70,6 +71,12 @@
         {
             MyViewController *VC = [[MyViewController alloc] init];
             [VC setupCaptureSessionWithModel:PipelineModeAssetWriter];
+            [self presentViewController:VC animated:YES completion:nil];
+        }
+            break;
+        case 3:
+        {
+            SecondViewController *VC = [[SecondViewController alloc] init];
             [self presentViewController:VC animated:YES completion:nil];
         }
             break;
