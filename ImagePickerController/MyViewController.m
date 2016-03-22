@@ -11,6 +11,7 @@
 #import "FileManager.h"
 #import "CaptureSessionAssetWriterCoordinator.h"
 #import "CaptureSessionMovieFileOutputCoordinator.h"
+#import "SecondViewController.h"
 
 @interface MyViewController () <CaptureSessionCoordinatorDelegate>
 
@@ -22,9 +23,10 @@
 @property (nonatomic, strong) UIButton *close;
 @property (nonatomic, strong) UIButton *change;//切摄像头
 @property (nonatomic, strong) UIButton *flash;//闪光灯
-@property (nonatomic, strong) UIButton *pause;//暂停
-@property (nonatomic, strong) UIButton *resume;//恢复录制
-@property (nonatomic,strong) UIView *focalReticule;//对焦十字
+@property (nonatomic, strong) UIButton *pause;//暂停、恢复录制
+@property (nonatomic, strong) UIButton *stop;//页面跳转
+@property (nonatomic, strong) UIView *focalReticule;//对焦十字
+@property (nonatomic, strong) NSURL *url;
 
 @end
 
@@ -71,15 +73,16 @@
     
     self.pause = [UIButton buttonWithType:UIButtonTypeCustom];
     self.pause.frame = CGRectMake((WIDTH/2 - 100)/2, 100, 100, 50);
-    [self.pause setTitle:@"暂停" forState:UIControlStateNormal];
-    [self.pause addTarget:self action:@selector(pauseClick) forControlEvents:UIControlEventTouchUpInside];
+    [self.pause setTitle:@"录制状态" forState:UIControlStateNormal];
+    self.pause.tag = 1;
+    [self.pause addTarget:self action:@selector(pauseClick:) forControlEvents:UIControlEventTouchUpInside];
     [toolView addSubview:self.pause];
 
-    self.resume = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.resume.frame = CGRectMake(WIDTH/2 + (WIDTH/2 - 100)/2, 100, 100, 50);
-    [self.resume setTitle:@"恢复录制" forState:UIControlStateNormal];
-    [self.resume addTarget:self action:@selector(resumeClick) forControlEvents:UIControlEventTouchUpInside];
-    [toolView addSubview:self.resume];
+    self.stop = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.stop.frame = CGRectMake(WIDTH/2 + (WIDTH/2 - 100)/2, 100, 100, 50);
+    [self.stop setTitle:@"stop" forState:UIControlStateNormal];
+    [self.stop addTarget:self action:@selector(stopClick) forControlEvents:UIControlEventTouchUpInside];
+    [toolView addSubview:self.stop];
     
     //对焦十字
     _focalReticule=[[UIView alloc]initWithFrame:CGRectMake(0, 0, 60, 60)];
@@ -120,7 +123,7 @@
 
 - (void)configureInterface {
     AVCaptureVideoPreviewLayer *previewLayer = [self.captureSessionCoordinator previewLayer];
-    previewLayer.frame = CGRectMake(0, -(HEIGHT - (WIDTH/3*4))/2, WIDTH, HEIGHT);
+    previewLayer.frame = CGRectMake(0, 0, WIDTH, WIDTH/3*4);
     [self.view.layer insertSublayer:previewLayer atIndex:0];
     [self.captureSessionCoordinator startRunning];
 }
@@ -186,14 +189,27 @@
     [self.captureSessionCoordinator changeClick];
 }
 
-//暂停录制
-- (void)pauseClick {
-    [self.captureSessionCoordinator pauseRecording];
+//暂停、恢复录制
+- (void)pauseClick:(UIButton *)sender {
+    if (sender.tag) {
+        [self.captureSessionCoordinator pauseRecording];
+        [self.pause setTitle:@"暂停状态" forState:UIControlStateNormal];
+    }else {
+        [UIApplication sharedApplication].idleTimerDisabled = YES;
+        [self.captureSessionCoordinator resumeRecording];
+        [self.pause setTitle:@"录制状态" forState:UIControlStateNormal];
+    }
+    sender.tag = !sender.tag;
 }
 
-//恢复录制
-- (void)resumeClick {
-    [self.captureSessionCoordinator resumeRecording];
+//next
+- (void)stopClick {
+    if (self.isRecording) {
+        [self.captureSessionCoordinator stopRecording];
+    }
+    SecondViewController *VC = [[SecondViewController alloc] init];
+    VC.url = self.url;
+    [self presentViewController:VC animated:YES completion:nil];
 }
 
 #pragma mark - CaptureSessionCoordinatorDelegate
@@ -202,11 +218,12 @@
 }
 
 - (void)coordinator:(CaptureSessionCoordinator *)coordinator didFinishRecordingToOutputFileURL:(NSURL *)outputFileURL error:(NSError *)error {
+    self.url = outputFileURL;
     [UIApplication sharedApplication].idleTimerDisabled = NO;
     self.isRecording = NO;
     [self.record setTitle:@"start" forState:UIControlStateNormal];
-    FileManager *fm = [[FileManager alloc] init];
-    [fm copyFileToCameraRoll:outputFileURL];
+//    FileManager *fm = [[FileManager alloc] init];
+//    [fm copyFileToCameraRoll:outputFileURL];
     
     if (self.dismissing) {
         [self stopRunningAndDismiss];

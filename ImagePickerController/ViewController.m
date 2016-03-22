@@ -10,7 +10,6 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AVFoundation/AVFoundation.h>
 #import "MyViewController.h"
-#import "SecondViewController.h"
 
 
 @interface ViewController () <UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate>
@@ -42,7 +41,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 4;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -74,13 +73,6 @@
             [self presentViewController:VC animated:YES completion:nil];
         }
             break;
-        case 3:
-        {
-            SecondViewController *VC = [[SecondViewController alloc] init];
-            [self presentViewController:VC animated:YES completion:nil];
-        }
-            break;
-            
         default:
             break;
     }

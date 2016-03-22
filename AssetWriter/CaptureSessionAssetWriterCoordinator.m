@@ -39,8 +39,13 @@ typedef NS_ENUM( NSInteger, RecordingStatus )
 @property(nonatomic, retain) __attribute__((NSObject)) CMFormatDescriptionRef outputAudioFormatDescription;
 @property(nonatomic, retain) AssetWriterCoordinator *assetWriterCoordinator;
 
-@property (nonatomic, assign) BOOL isCapturing;//正在录制
+@property (nonatomic, assign) BOOL isDiscont;
 @property (nonatomic, assign) BOOL isPaused;//暂停
+
+@property (nonatomic, assign) CMTime timeOffset;
+@property (nonatomic, assign) CMTime lastVideo;
+@property (nonatomic, assign) CMTime lastAudio;
+
 
 
 @end
@@ -92,16 +97,62 @@ typedef NS_ENUM( NSInteger, RecordingStatus )
 }
 
 - (void)pauseRecording {
-    
+    self.isDiscont = YES;
+    self.isPaused = YES;
 }
 
 - (void)resumeRecording {
-    
+    self.isPaused = NO;
 }
 
 #pragma mark - SampleBufferDelegate methods
 - (void)captureOutput:(AVCaptureOutput *)captureOutput didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
     CMFormatDescriptionRef formatDescription = CMSampleBufferGetFormatDescription(sampleBuffer);
+    BOOL bVideo = YES;
+    if (self.isPaused) {
+        return;
+    }
+    if (connection != self.videoConnection) {
+        bVideo = NO;
+    }
+    if (_isDiscont) {
+        if (bVideo) {
+            return;
+        }
+        _isDiscont = NO;
+        CMTime pts = CMSampleBufferGetPresentationTimeStamp(sampleBuffer);
+        CMTime last = bVideo ? _lastVideo : _lastAudio;
+        if (last.flags & kCMTimeFlags_Valid) {
+            if (_timeOffset.flags & kCMTimeFlags_Valid) {
+                pts = CMTimeSubtract(pts, _timeOffset);
+            }
+            CMTime offset = CMTimeSubtract(pts, last);
+            // this stops us having to set a scale for _timeOffset before we see the first video time
+            if (_timeOffset.value == 0) {
+                _timeOffset = offset;
+            }else {
+                _timeOffset = CMTimeAdd(_timeOffset, offset);
+            }
+        }
+        _lastVideo.flags = 0;
+        _lastAudio.flags = 0;
+    }
+    CFRetain(sampleBuffer);
+    if (_timeOffset.value > 0) {
+        CFRelease(sampleBuffer);
+        sampleBuffer = [self adjustTime:sampleBuffer by:_timeOffset];
+    }
+    // record most recent time so we know the length of the pause
+    CMTime pts = CMSampleBufferGetPresentationTimeStamp(sampleBuffer);
+    CMTime dur = CMSampleBufferGetDuration(sampleBuffer);
+    if (dur.value > 0) {
+        pts = CMTimeAdd(pts, dur);
+    }
+    if (bVideo) {
+        _lastVideo = pts;
+    }else {
+        _lastAudio = pts;
+    }
     if (connection == _videoConnection) {
         if (self.outputVideoFormatDescription == nil) {
             [self setupPipelineWithInputFormatDescription:formatDescription];
@@ -121,6 +172,24 @@ typedef NS_ENUM( NSInteger, RecordingStatus )
             }
         }
     }
+    CFRelease(sampleBuffer);
+}
+
+- (CMSampleBufferRef)adjustTime:(CMSampleBufferRef) sample by:(CMTime) offset
+{
+    CMItemCount count;
+    CMSampleBufferGetSampleTimingInfoArray(sample, 0, nil, &count);
+    CMSampleTimingInfo* pInfo = malloc(sizeof(CMSampleTimingInfo) * count);
+    CMSampleBufferGetSampleTimingInfoArray(sample, count, pInfo, &count);
+    for (CMItemCount i = 0; i < count; i++)
+    {
+        pInfo[i].decodeTimeStamp = CMTimeSubtract(pInfo[i].decodeTimeStamp, offset);
+        pInfo[i].presentationTimeStamp = CMTimeSubtract(pInfo[i].presentationTimeStamp, offset);
+    }
+    CMSampleBufferRef sout;
+    CMSampleBufferCreateCopyWithNewTiming(nil, sample, count, pInfo, &sout);
+    free(pInfo);
+    return sout;
 }
 
 - (void)setupPipelineWithInputFormatDescription:(CMFormatDescriptionRef)inputFormatDescription {

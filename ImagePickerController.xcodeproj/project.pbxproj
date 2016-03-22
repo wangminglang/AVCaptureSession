@@ -11,6 +11,7 @@
 		BE446A161C92A9DC00655F7D /* CaptureSessionCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = BE446A151C92A9DC00655F7D /* CaptureSessionCoordinator.m */; };
 		BE446A191C92ADE500655F7D /* CaptureSessionMovieFileOutputCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = BE446A181C92ADE500655F7D /* CaptureSessionMovieFileOutputCoordinator.m */; };
 		BE446A1C1C92AE2900655F7D /* CaptureSessionAssetWriterCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = BE446A1B1C92AE2900655F7D /* CaptureSessionAssetWriterCoordinator.m */; };
+		BEE1F2121CA0EBBB009C44DE /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE1F2111CA0EBBB009C44DE /* SecondViewController.m */; };
 		BEE4574B1C910FC700E23F48 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE4574A1C910FC700E23F48 /* main.m */; };
 		BEE4574E1C910FC700E23F48 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE4574D1C910FC700E23F48 /* AppDelegate.m */; };
 		BEE457561C910FC700E23F48 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BEE457551C910FC700E23F48 /* Assets.xcassets */; };
@@ -19,10 +20,7 @@
 		BEE4576F1C910FC700E23F48 /* ImagePickerControllerUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE4576E1C910FC700E23F48 /* ImagePickerControllerUITests.m */; };
 		BEE4577E1C91141800E23F48 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE4577D1C91141800E23F48 /* ViewController.m */; };
 		BEE457811C914B5400E23F48 /* MyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE457801C914B5400E23F48 /* MyViewController.m */; };
-		BEE7B8D01C9BD2C4008DB239 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE7B8CF1C9BD2C4008DB239 /* SecondViewController.m */; };
-		BEE7B8D31C9BD63D008DB239 /* CameraEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = BEE7B8D21C9BD63D008DB239 /* CameraEngine.m */; };
 		BEEDC1AA1C9A548300FA219B /* AssetWriterCoordinator.m in Sources */ = {isa = PBXBuildFile; fileRef = BEEDC1A91C9A548300FA219B /* AssetWriterCoordinator.m */; };
-		BEEF3E561C9BE60B00D5AEFC /* VideoEncoder.m in Sources */ = {isa = PBXBuildFile; fileRef = BEEF3E551C9BE60B00D5AEFC /* VideoEncoder.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +49,8 @@
 		BE446A181C92ADE500655F7D /* CaptureSessionMovieFileOutputCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureSessionMovieFileOutputCoordinator.m; sourceTree = "<group>"; };
 		BE446A1A1C92AE2900655F7D /* CaptureSessionAssetWriterCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CaptureSessionAssetWriterCoordinator.h; sourceTree = "<group>"; };
 		BE446A1B1C92AE2900655F7D /* CaptureSessionAssetWriterCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CaptureSessionAssetWriterCoordinator.m; sourceTree = "<group>"; };
+		BEE1F2101CA0EBBB009C44DE /* SecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
+		BEE1F2111CA0EBBB009C44DE /* SecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		BEE457461C910FC700E23F48 /* ImagePickerController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ImagePickerController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BEE4574A1C910FC700E23F48 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		BEE4574C1C910FC700E23F48 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -70,14 +70,8 @@
 		BEE457801C914B5400E23F48 /* MyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyViewController.m; sourceTree = "<group>"; };
 		BEE457821C91545900E23F48 /* Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Header.h; sourceTree = "<group>"; };
 		BEE457831C91547F00E23F48 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
-		BEE7B8CE1C9BD2C4008DB239 /* SecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		BEE7B8CF1C9BD2C4008DB239 /* SecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
-		BEE7B8D11C9BD63D008DB239 /* CameraEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraEngine.h; sourceTree = "<group>"; };
-		BEE7B8D21C9BD63D008DB239 /* CameraEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraEngine.m; sourceTree = "<group>"; };
 		BEEDC1A81C9A548300FA219B /* AssetWriterCoordinator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetWriterCoordinator.h; sourceTree = "<group>"; };
 		BEEDC1A91C9A548300FA219B /* AssetWriterCoordinator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetWriterCoordinator.m; sourceTree = "<group>"; };
-		BEEF3E541C9BE60B00D5AEFC /* VideoEncoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoEncoder.h; sourceTree = "<group>"; };
-		BEEF3E551C9BE60B00D5AEFC /* VideoEncoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoEncoder.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,10 +106,6 @@
 				BE446A0D1C926A8B00655F7D /* FileManager.m */,
 				BE446A141C92A9DC00655F7D /* CaptureSessionCoordinator.h */,
 				BE446A151C92A9DC00655F7D /* CaptureSessionCoordinator.m */,
-				BEE7B8D11C9BD63D008DB239 /* CameraEngine.h */,
-				BEE7B8D21C9BD63D008DB239 /* CameraEngine.m */,
-				BEEF3E541C9BE60B00D5AEFC /* VideoEncoder.h */,
-				BEEF3E551C9BE60B00D5AEFC /* VideoEncoder.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -172,8 +162,8 @@
 				BEE4577D1C91141800E23F48 /* ViewController.m */,
 				BEE4577F1C914B5400E23F48 /* MyViewController.h */,
 				BEE457801C914B5400E23F48 /* MyViewController.m */,
-				BEE7B8CE1C9BD2C4008DB239 /* SecondViewController.h */,
-				BEE7B8CF1C9BD2C4008DB239 /* SecondViewController.m */,
+				BEE1F2101CA0EBBB009C44DE /* SecondViewController.h */,
+				BEE1F2111CA0EBBB009C44DE /* SecondViewController.m */,
 				BEE457491C910FC700E23F48 /* Supporting Files */,
 			);
 			path = ImagePickerController;
@@ -339,11 +329,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BEE7B8D31C9BD63D008DB239 /* CameraEngine.m in Sources */,
-				BEE7B8D01C9BD2C4008DB239 /* SecondViewController.m in Sources */,
+				BEE1F2121CA0EBBB009C44DE /* SecondViewController.m in Sources */,
 				BE446A191C92ADE500655F7D /* CaptureSessionMovieFileOutputCoordinator.m in Sources */,
 				BEEDC1AA1C9A548300FA219B /* AssetWriterCoordinator.m in Sources */,
-				BEEF3E561C9BE60B00D5AEFC /* VideoEncoder.m in Sources */,
 				BE446A161C92A9DC00655F7D /* CaptureSessionCoordinator.m in Sources */,
 				BE446A1C1C92AE2900655F7D /* CaptureSessionAssetWriterCoordinator.m in Sources */,
 				BEE4577E1C91141800E23F48 /* ViewController.m in Sources */,
